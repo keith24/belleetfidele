@@ -1,6 +1,12 @@
+# Basic stuff
 *.pyc
 *.pyo
 *.db
 .DS_Store
 .coverage
+
+# Contains secrets
 local_settings.py
+
+# Gets pulled automatically
+static/css/bootswatch
