@@ -1,0 +1,28 @@
+<!--{% load mezzanine_tags i18n %}-->
+<div class='panel panel-default'>
+<div class='panel-heading'>
+	<h3 class='panel-title'>{% trans 'Quick translation' %}</h3>
+</div>
+<div class='panel-body' ng-app="translatorApp" ng-controller="translatorCtrl">
+
+	<p>{% trans 'Paste some text below to get a quote' %}. </p>
+
+	<div class='form-group'>
+		<textarea class='form-control' ng-model="text"></textarea>
+	</div>
+
+	<p>
+	{% blocktrans %}
+			These {$words()$} words will be translated
+		from <select ng-model="fromLang" ng-options="lang for lang in langs" ng-init="fromLang=langs[0]"></select> 
+		to <select ng-model="toLang" ng-options="lang for lang in langs" ng-init="toLang=langs[1]"></select> 
+		in {$days()$} days and 
+		emailed to <input type="email" placeholder="you@example.com" ng-model="email" required></input>.
+	{% endblocktrans %}
+	</p>
+
+	<button class='btn btn-primary' ng-click="buy()">{% trans 'Buy translation for ${$cost()$}' %}</button>
+
+</div>
+</div>
+

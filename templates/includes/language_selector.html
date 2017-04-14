@@ -1,0 +1,33 @@
+{% load i18n %}
+{% get_language_info_list for LANGUAGES as languages %}
+{% if settings.USE_MODELTRANSLATION and languages|length > 1 %}
+
+<script type="text/javascript">
+	$(function(ready){
+		// hide submit button if browser has javascript support (use onchange event)
+		$('.language_selector_form input.btn').hide();
+		// Set language (send form) on dropdown change
+		$('.language_selector_form').change(function(){
+			this.submit();
+		});
+	});
+</script>
+
+<form class='language_selector_form' action="{% url 'set_language' %}" method="post" style="margin:13px 15px">
+	{% csrf_token %}
+	<div class='form-group' style="margin:0 5px;float:left">
+
+		<select name="language" class='form-control' style="width:100px">
+			{% for language in languages %}
+				<option value="{{language.code}}"
+					{% if language.code == LANGUAGE_CODE %}selected="selected"{% endif %}>
+					{{language.name_local}}
+				</option>
+			{% endfor %}
+		</select>
+		
+	</div>
+	<input type="submit" class='btn btn-default btn-sm' value="{% trans 'Set' %}">
+</form>
+
+{% endif %}

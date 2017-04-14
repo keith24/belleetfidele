@@ -1,0 +1,252 @@
+{% extends "pages/page.html" %}
+{% load i18n mezzanine_tags pages_tags staticfiles %}
+
+
+{% block extra_css %}{{block.super}}
+<style>
+	.spinner {
+		display: none;
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		margin: auto;
+		width: 30vw;
+		text-align: center;
+	}
+
+	.spinner > div {
+		width: 5vw;
+		height: 5vw;
+		background-color: #1a242f;
+
+		border-radius: 100%;
+		display: inline-block;
+		-webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+		animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+	}
+
+	.spinner .bounce1 {
+		-webkit-animation-delay: -0.32s;
+		animation-delay: -0.32s;
+	}
+
+	.spinner .bounce2 {
+		-webkit-animation-delay: -0.16s;
+		animation-delay: -0.16s;
+	}
+
+	@-webkit-keyframes sk-bouncedelay {
+		0%, 80%, 100% { -webkit-transform: scale(0) }
+		40% { -webkit-transform: scale(1.0) }
+	}
+
+	@keyframes sk-bouncedelay {
+		0%, 80%, 100% { 
+			-webkit-transform: scale(0);
+			transform: scale(0);
+		} 40% { 
+			-webkit-transform: scale(1.0);
+			transform: scale(1.0);
+		}
+	}
+</style>
+{% endblock %}
+
+{% block main %}{{block.super}}
+
+	{% editable page.translator.content %}
+		{{ page.translator.content|richtext_filters|safe }}
+	{% endeditable %}
+	<br>
+
+	<!-- Spinner -->
+	<div class='spinner'>
+		<div class='bounce1'></div>
+		<div class='bounce2'></div>
+		<div class='bounce3'></div>
+	</div>
+	
+	<!-- Quick Translate -->
+	<div id='quick-translate' class='panel panel-primary'>
+
+		<div class='panel-heading'>
+		{% editable page.translator.form_title %}
+		<h3 class='panel-title'>
+			{{page.translator.form_title}}
+			<!--Quick Translate-->
+		</h3>
+		{% endeditable %}
+		</div>
+
+		<!-- Translation form -->
+		<div class='panel-body' ng-app="translatorApp" ng-controller="translatorCtrl">
+
+			<noscript>
+				<div class='alert alert-dismissible alert-danger'>
+					<b>{% trans 'Opps!' %}</b> You need javascript to use this feature!
+					(<a class='alert-link' href="https://www.whatismybrowser.com/detect/is-javascript-enabled">More information</a>)
+				</div>
+				<p>You can still <a href="/contact">send text to be translated</a> and receive an estimate in response. </p>
+			</noscript>
+
+			<!-- Paste some text below for a quote. -->
+			{% editable page.translator.intro %}
+			<p class='scriptonly'>
+				{{page.translator.intro}}
+			</p>
+			{% endeditable %}
+
+			<!-- Lorem ipsum... -->
+			<div class='form-group scriptonly'>
+			{% editable page.translator.default_text %}
+				<textarea class='form-control' ng-model="text" style="width:100%;max-width:100%;" rows="5">
+				</textarea>
+			{% endeditable %}
+			</div>
+
+			<!--These {$words()$} words will be translated from <from-lang></from-lang> to
+				<to-lang></to-lang> in {$days()$} days and emailed to <input-email></input-email>.-->
+			{% editable page.translator.quote %}
+			<p class='scriptonly'>
+				{{page.translator.quote|safe}}
+			</p>
+			{% endeditable %}
+
+			<!--Buy for {$cost()$}-->
+
+			<div class='btn-group btn-block scriptonly'>
+				<button id='buy-button' class='btn btn-primary btn-lg btn-block'
+					ng-class="{'disabled':!active()}" ng-click="buy()" ng-disabled="!active()">
+					{$buttonText()$}
+				</button>
+				<!-- When adding dropdown, replace btn-block with col-xs-10 on #buy-button -->
+				<!--
+				<button class='btn btn-primary btn-lg dropdown-toggle col-xs-2' data-toggle="dropdown"><span class='caret'></span></button>
+				<ul class='dropdown-menu' style="width:100%">
+					<li><a href="#">EUR</a></li>
+					<li><a href="#">USD</a></li>
+					<li><a href="#">GBP</a></li>
+				</ul>
+				-->
+			</div>
+
+		</div>
+
+	</div>
+
+{% endblock %}
+
+{% block extra_js %}{{block.super}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular.min.js" type="text/javascript"></script>
+<script src="https://checkout.stripe.com/checkout.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.scriptonly').show();
+	});
+	
+	var app = angular.module('translatorApp', []);
+	app.config(function($interpolateProvider) {
+		$interpolateProvider.startSymbol('{$');
+		$interpolateProvider.endSymbol('$}');
+	});
+	
+	app.directive("toLang", function() { return {
+		restrict: 'E',
+		template: '<select ng-model="language" ng-options="lang for lang in langs" ng-init="language=langs[0]"></select>',
+		replace: true
+	}; });
+	app.directive("inputEmail", function() { return {
+		restrict: 'E',
+		template: '<input type="email" placeholder="you@example.com" ng-model="email" style="width:99%"></input>',
+		replace: true
+	}; });
+	
+	app.controller('translatorCtrl', function($scope) {
+		
+		$scope.email = "";
+		$scope.text = "{{page.translator.default_text|escapejs}}";
+		$scope.langs = "{{page.translator.langs}}".replace(/ /g,'').split(',');
+		$scope.minWords = {{page.translator.min_words}};
+		
+		$scope.words = function() {
+			return $scope.text?$scope.text.split(/\s+/).length:0;
+		};
+		$scope.longEnough = function() {
+			return $scope.words()>={{page.translator.min_words}};
+		};
+		$scope.hasEmail = function() {
+			return ($scope.email)?$scope.email.length>0:false;
+		}
+		$scope.active = function() {
+			return $scope.longEnough() && $scope.hasEmail();
+		}
+		$scope.days = function() {
+			return ($scope.words()/{{page.translator.words_day}}+1).toFixed(0);
+		};
+		$scope.cost = function() {
+			return ($scope.words()*{{page.translator.price_word}}).toFixed(2);
+		};
+		$scope.buttonText = function() {
+			if (!$scope.longEnough()) {
+				return "{{page.translator.too_short}}".replace('{$minWords$}',$scope.minWords);
+			} else if (!$scope.hasEmail()) {
+				return "{{page.translator.no_email}}";
+			} else {
+				return "{{page.translator.buy}}".replace('{$cost$}',$scope.cost());
+			}
+		};
+
+		$scope.buy = function() {
+			$('#buy-button').prop("disabled",true);
+			$('.spinner').show();
+			StripeCheckout.configure({
+				key: '{{page.translator.stripe_pk}}',
+				image: '{% static "media/uploads/stripe_img.png" %}',
+				locale: '{{LANGUAGE_CODE}}',
+				zipCode: true,
+				token: function(token) { // Payment successful
+					// Send data to server
+					$.post("/translate/",{
+						csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+						token: token.id,
+						text: $scope.text,
+						words: $scope.words(),
+						email: $scope.email,
+						cost: Math.round($scope.words()*{{page.translator.price_word}}),
+						currency: 'EUR',
+						days: parseInt($scope.days()),
+						lang: $scope.language,
+						locale: '{{LANGUAGE_CODE}}'
+					}).done(function(data){
+						// Translation received successfully (200)
+						$('#center-column').html(data
+							.replace('{$days$}',$scope.days())
+							.replace('{$lang$}',$scope.language)
+							.replace('{$words$}',$scope.words())
+							.replace('{$email$}',$scope.email)
+							.replace('{$id$}',token.id)
+						);
+						$('.spinner').hide();
+					}).fail(function(data){
+						// Error response
+						$('#buy-button').prop("disabled",false);
+						$('.spinner').hide();
+						console.log(data);
+						alert('Something went wrong! Please try again. If the problem persists, please email tech@belleetfidele.com');
+					});
+				}
+			}).open({
+				name: '{{page.translator.title}}',
+				email: $scope.email,
+				currency: 'EUR',
+				bitcoin: true,
+				description: $scope.words().toString()+' {% trans "words to" %} '+$scope.language,
+				amount: Math.round($scope.words()*{{page.translator.price_word}}*100)
+			});
+		};
+	});
+
+</script>
+
+{% endblock %}
