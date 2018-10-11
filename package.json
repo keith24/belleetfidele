@@ -1,0 +1,23 @@
+{
+  "name": "human-translate",
+  "version": "0.0.0",
+  "description": "A webpage to let users submit text for human translation. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keith24/human-translate.git"
+  },
+  "keywords": [
+    "translation",
+    "translate"
+  ],
+  "author": "Keith Irwin",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "bugs": {
+    "url": "https://github.com/keith24/human-translate/issues"
+  },
+  "homepage": "https://github.com/keith24/human-translate#readme"
+}
