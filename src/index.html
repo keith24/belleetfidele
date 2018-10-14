@@ -1,6 +1,15 @@
+---
+title: Human Translations by Keith Irwin
+intro: <p>It's easy to translate text or a webpage with a machine translator, like Google Translate.  However, the result is often poor quality at best, and unreadable at worst. </p><p>Professional human translations are the only way to get an accurate result.  Keith Irwin Translations combines the speed and ease of online translation services with the authenticity of an experienced translator. </p>
+instructions: Enter Spanish or German text into the box below to get a quote for a translation to English.
+sidebar_title: About the Translator
+sidebar_text: Keith is a trucker and programmer.  He studied mechanical engineering in Rostock, Germany in 2012.  He has travelled extensively in Europe and Latin America. 
+footer: &copy; 2018 <a href="https://www.keithirwin.us/">Keith Irwin</a>
+---
+
 <html>
 	<head>
-		<title>Human Translations by Keith Irwin</title>
+		<title>{{title}}</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="keywords" content="translate,translation">
@@ -11,17 +20,16 @@
 	
 	<body>
 
-		<h1>Human Translations by Keith Irwin</h1>
+		<h1>{{title}}</h1>
 
 		<main>
 		
 			<section id='main'>
 			
-				<p>It's easy to translate text or a webpage with a machine translator, like Google Translate.  However, the result is often poor quality at best, and unreadable at worst. </p>
-				<p>Professional human translations are the only way to get an accurate result.  Keith Irwin Translations combines the speed and ease of online translation services with the authenticity of an experienced translator. </p>
+				{{intro|safe}}
 
 				<h2>Translate</h2>
-					<p>Enter Spanish or German text into the box below to get a quote for a translation to English.</p>
+					<p>{{instructions}}</p>
 					<textarea id='submission' data-bind="value:submission,valueUpdate:'afterkeydown'"></textarea>
 					<p>These <span data-bind="text:wordcount"></span> word<span data-bind="visible:pluralWords">s</span> will be translated in <span></span> days and emailed to</p>
 					<input id="buyer-email" type="text" placeholder="you@example.com"></input>
@@ -31,17 +39,15 @@
 
 		
 			<section id="sidebar">
-				<h1>About the Translator</h1>
-				<p>Keith is a trucker and programmer.  He studied mechanical engineering in Rostock, Germany in 2012.  He has travelled extensively in Europe and Latin America. </p>
-				<!-- TODO: Add image -->
+				<h1>{{sidebar_title}}</h1>
+				<p>{{sidebar_text}}</p>
+				<img src="/img/face.jpg">
 			</section>
 			
 		</main>
 		
 		<footer>
-		<p>
-			&copy; 2018 <a href="https://www.keithirwin.us/">Keith Irwin</a>
-		</p>
+		<p>{{footer|safe}}</p>
 		</footer>
 		
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js" integrity="sha256-owX7sroiO/O1a7h3a4X29A1g3QgqdNvijRQ7V5TH45M=" crossorigin="anonymous"></script>
