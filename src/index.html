@@ -22,8 +22,8 @@
 
 				<h2>Translate</h2>
 					<p>Enter Spanish or German text into the box below to get a quote for a translation to English.</p>
-					<textarea id='submission' data-bind="value:submission"></textarea>
-					<p>These <span data-bind="text:wordcount"></span> words will be translated in <span></span> days and emailed to</p>
+					<textarea id='submission' data-bind="value:submission,valueUpdate:'afterkeydown'"></textarea>
+					<p>These <span data-bind="text:wordcount"></span> word<span data-bind="visible:pluralWords">s</span> will be translated in <span></span> days and emailed to</p>
 					<input id="buyer-email" type="text" placeholder="you@example.com"></input>
 					<button id="buy-btn">Buy Translation for $<span data-bind="text:price"></span></button>
 
