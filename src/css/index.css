@@ -1,0 +1,18 @@
+body {
+	margin: 5vw;
+}
+
+main {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+textarea#submission, 
+input#buyer-email,
+button#buy-btn {
+	width: 100%;
+}
+
+footer {
+	text-align: center;
+}

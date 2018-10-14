@@ -1,6 +1,15 @@
 module.exports = {
+templateFormats: [
+    'html',
+    'njk',
+    'css',
+    'js',
+    'ico',
+    'png',
+    'jpg',
+  ],
   dir: {
-    input: 'views',
+    input: 'src',
     output: '_site',
-  }
+  },
 }
