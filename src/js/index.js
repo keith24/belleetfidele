@@ -3,8 +3,8 @@ ko.applyBindings(function() {
   this.wordcount = ko.computed(function () {
     return countWords(this.submission())
   })
-	this.price = ko.computed(function() {
-	  return (parseInt(this.wordcount(), 10) * .3).toFixed(2)
+	this.cost = ko.computed(function() {
+	  return (parseInt(this.wordcount(), 10) * document.getElementById('price').value).toFixed(2)
 	})
 	this.pluralWords = ko.computed(function() {
 	  return this.wordcount()!==1

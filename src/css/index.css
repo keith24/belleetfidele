@@ -1,15 +1,17 @@
 body {
 	font-size: 1.3em;
 	margin: 5vw;
-	background: #333;
-	color: #eee;
 }
 
 main {
-	margin: auto;
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+#main {
 	max-width: 900px;
+	margin: auto;
 }
 
 #sidebar {
@@ -27,34 +29,14 @@ main {
 	float: left;
 }
 
-input#buyer-email,
-textarea#submission {
-	background-color: #444;
-	color: #eee;
-}
-textarea#submission {
-	
-}
-
-button#buy-btn {
-	cursor: pointer;
-	border-radius: 2vw;
-	font-size: 2em;
-	padding: 2%;
-	margin-top: 1%;
-	background-color: #245;
-	color: #eee;
-	border: 0;
-	box-shadow: none;
-}
-button#buy-btn:hover {
-	background-color: #356;2
-}
-
-textarea#submission, 
-input#buyer-email,
-button#buy-btn {
-	width: 100%;
+@media (min-width: 950px) {
+	#main {
+		width: 70%
+	}
+	#sidebar {
+		width: 25%;
+		margin: 0;
+	}
 }
 
 footer {

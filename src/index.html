@@ -5,6 +5,7 @@ instructions: Enter Spanish or German text into the box below to get a quote for
 sidebar_title: About the Translator
 sidebar_text: Keith is a trucker and programmer.  He studied mechanical engineering in Rostock, Germany in 2012.  He has travelled extensively in Europe and Latin America. 
 footer: &copy; 2018 <a href="https://www.keithirwin.us/">Keith Irwin</a>
+price: 0.045
 ---
 
 <html>
@@ -15,6 +16,8 @@ footer: &copy; 2018 <a href="https://www.keithirwin.us/">Keith Irwin</a>
 		<meta name="keywords" content="translate,translation">
 		<meta name="description" content="Enter text into a box to buy a human translation.">
 		<link rel="shortcut icon" type="image/ico" sizes="16x16" href="/img/favicon.ico">
+		<link rel="stylesheet" type="text/css" href="/css/normalize.css">
+		<link rel="stylesheet" type="text/css" href="/css/skeleton.css">
 		<link rel="stylesheet" type="text/css" href="/css/index.css">
 	</head>
 	
@@ -30,10 +33,11 @@ footer: &copy; 2018 <a href="https://www.keithirwin.us/">Keith Irwin</a>
 
 				<h2>Translate</h2>
 					<p>{{instructions}}</p>
-					<textarea id='submission' data-bind="value:submission,valueUpdate:'afterkeydown'"></textarea>
+					<textarea id="submission" class="u-full-width" data-bind="value:submission,valueUpdate:'afterkeydown'"></textarea>
 					<p>These <span data-bind="text:wordcount"></span> word<span data-bind="visible:pluralWords">s</span> will be translated in <span></span> days and emailed to</p>
-					<input id="buyer-email" type="text" placeholder="you@example.com"></input>
-					<button id="buy-btn">Buy Translation for $<span data-bind="text:price"></span></button>
+					<input id="buyer-email" class="u-full-width" type="text" placeholder="you@example.com"></input>
+					<input type="hidden" id="price" value="{{price}}">
+					<button id="buy-btn" class="button button-primary u-full-width">Buy Translation for $<span data-bind="text:cost"></span></button>
 
 			</section>
 
