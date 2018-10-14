@@ -16,8 +16,6 @@ price: 0.045
 		<meta name="keywords" content="translate,translation">
 		<meta name="description" content="Enter text into a box to buy a human translation.">
 		<link rel="shortcut icon" type="image/ico" sizes="16x16" href="/img/favicon.ico">
-		<link rel="stylesheet" type="text/css" href="/css/normalize.css">
-		<link rel="stylesheet" type="text/css" href="/css/skeleton.css">
 		<link rel="stylesheet" type="text/css" href="/css/index.css">
 	</head>
 	
@@ -33,11 +31,11 @@ price: 0.045
 
 				<h2>Translate</h2>
 					<p>{{instructions}}</p>
-					<textarea id="submission" class="u-full-width" data-bind="value:submission,valueUpdate:'afterkeydown'"></textarea>
-					<p>These <span data-bind="text:wordcount"></span> word<span data-bind="visible:pluralWords">s</span> will be translated in <span></span> days and emailed to</p>
-					<input id="buyer-email" class="u-full-width" type="text" placeholder="you@example.com"></input>
+					<textarea id="submission" data-bind="value:submission,valueUpdate:'afterkeydown'"></textarea>
+					<p>These <span id="wordcount" data-bind="text:wordcount"></span> word<span data-bind="visible:pluralWords">s</span> will be translated in <span></span> days and emailed to</p>
+					<input id="buyer-email" type="text" placeholder="you@example.com"></input>
 					<input type="hidden" id="price" value="{{price}}">
-					<button id="buy-btn" class="button button-primary u-full-width">Buy Translation for $<span data-bind="text:cost"></span></button>
+					<button id="buy-btn">Buy Translation for $<span id="cost" data-bind="text:cost"></span></button>
 
 			</section>
 
@@ -54,7 +52,9 @@ price: 0.045
 		<p>{{footer|safe}}</p>
 		</footer>
 		
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js" integrity="sha256-owX7sroiO/O1a7h3a4X29A1g3QgqdNvijRQ7V5TH45M=" crossorigin="anonymous"></script>
+		<script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js" integrity="sha256-owX7sroiO/O1a7h3a4X29A1g3QgqdNvijRQ7V5TH45M=" crossorigin="anonymous"></script>
+		<script type="application/javascript" src="https://checkout.stripe.com/checkout.js"></script>
 		<script type="application/javascript" src="/js/index.js"></script>
+	</form>
 	</body>
 </html>
