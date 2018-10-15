@@ -33,7 +33,7 @@ price: 0.045
 					<p>{{instructions}}</p>
 					<textarea id="submission" data-bind="value:submission,valueUpdate:'afterkeydown'"></textarea>
 					<p>These <span id="wordcount" data-bind="text:wordcount"></span> word<span data-bind="visible:pluralWords">s</span> will be translated in <span></span> days and emailed to</p>
-					<input id="buyer-email" type="text" placeholder="you@example.com"></input>
+					<input id="email" type="text" placeholder="you@example.com"></input>
 					<input type="hidden" id="price" value="{{price}}">
 					<button id="buy-btn">Buy Translation for $<span id="cost" data-bind="text:cost"></span></button>
 

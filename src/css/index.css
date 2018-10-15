@@ -39,9 +39,9 @@ main {
 	}
 }
 
-#submission, 
-#buyer-email,
-#buy-btn {
+textarea#submission, 
+input#email,
+button#buy-btn {
 	width: 100%;
 }
 
