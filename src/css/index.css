@@ -1,5 +1,6 @@
+/* LAYOUT */
+
 body {
-	font-size: 1.3em;
 	margin: 5vw;
 }
 
@@ -36,11 +37,38 @@ main {
 }
 
 textarea#submission, 
-input#email,
 button#buy-btn {
 	width: 100%;
 }
 
 footer {
 	text-align: center;
+}
+
+/* THEME */
+body, input, button, textarea {
+	background: #222;
+	color: #eee;
+}
+p {
+	font-size: 1.3em;
+	font-family: sans-serif;
+}
+input {
+	border-width: 1px;
+	font-size: 1em;
+}
+button {
+	cursor: pointer;
+	background: #333;
+	font-size: 1.4em;
+	padding: 20px;
+	border-radius: 10px;
+	border-width: 1px;
+}
+button:hover {
+	background: #111;
+}
+button:active {
+	border-width: 2px;
 }

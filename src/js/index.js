@@ -4,7 +4,7 @@ ko.applyBindings(function() {
     return countWords(this.submission())
   })
 	this.cost = ko.computed(function() {
-	  return (parseInt(this.wordcount(), 10) * document.getElementById('price').value).toFixed(2)
+	  return (parseInt(this.wordcount(), 10) * document.getElementsByName('price')[0].value).toFixed(2)
 	})
 	this.pluralWords = ko.computed(function() {
 	  return this.wordcount()!==1
@@ -26,7 +26,7 @@ const buyHandler = StripeCheckout.configure({
     
     // Append token to form
     const form = document.getElementById('translate-form')
-    const tokenInput = document.getElementById('stripe-token')
+    const tokenInput = document.getElementsByName('stripe-token')[0]
     tokenInput.setAttribute('value', token.id)
     form.appendChild(tokenInput)
     
@@ -42,9 +42,9 @@ document.getElementById('buy-btn').addEventListener('click', function(e) {
   
   // TODO: Make the red boxes normal again
   
-  email = document.getElementById('email').value
-  wordcount = document.getElementById('wordcount').innerHTML
-  cost = document.getElementById('cost').innerHTML
+  email = document.getElementsByName('email')[0].value
+  wordcount = document.getElementsByName('wordcount')[0].value
+  cost = document.getElementsByName('cost')[0].value
   
   // Validations
   if (wordcount==0) {
