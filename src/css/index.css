@@ -18,15 +18,11 @@ main {
 	max-width: 400px;
 	margin: auto;
 }
-#sidebar p {
-	float: left;
-	width: 50%;
-}
 #sidebar img {
 	border-radius: 50%;
 	width: 50%;
 	max-width: 200px;
-	float: left;
+	float: right;
 }
 
 @media (min-width: 950px) {
