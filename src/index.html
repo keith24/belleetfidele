@@ -38,12 +38,17 @@ price: 0.045
 				
 				<!-- Translation form -->
 				<h2>Translate</h2>
+				<form id="translate-form" method="POST" action="https://formspree.io/translate@ki9.us">
 					<p>{{instructions}}</p>
-					<textarea id="submission" data-bind="value:submission,valueUpdate:'afterkeydown'"></textarea>
+					<textarea id="submission" name="submission" data-bind="value:submission,valueUpdate:'afterkeydown'"></textarea>
 					<p>These <span id="wordcount" data-bind="text:wordcount"></span> word<span data-bind="visible:pluralWords">s</span> will be translated in <span></span> days and emailed to</p>
-					<input id="email" type="text" placeholder="you@example.com"></input>
-					<input type="hidden" id="price" value="{{price}}">
-					<button id="buy-btn">Buy Translation for $<span id="cost" data-bind="text:cost"></span></button>
+					<input type="text" name="email" id="email" placeholder="you@example.com"></input>
+					<input type="hidden" name="price" id="price" value="{{price}}">
+					<input type="hidden" name="cost" id="cost" data-bind="value:cost">
+					<input type="hidden" name="wordcount" id="wordcount" data-bind="value:wordcount">
+					<input type="hidden" name="stripe-token" id="stripe-token">
+					<button type="submit" id="buy-btn">Buy Translation for $<span id="cost" data-bind="text:cost"></span></button>
+				</form>
 			</section>
 
 		

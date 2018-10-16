@@ -1,6 +1,3 @@
-// Global vars
-const xhr = new XMLHttpRequest()
-
 ko.applyBindings(function() {
   this.submission = ko.observable('')
   this.wordcount = ko.computed(function () {
@@ -20,31 +17,28 @@ function countWords(s) {
   else return word_array.length
 }
 
+// Stripe purchase
 const buyHandler = StripeCheckout.configure({
   key: 'pk_test_absAcyl9d70mNZaoLomaOczZ',
   locale: 'auto',
+  zipCode: true,
   token: function(token) {
-  
-    // POST the data!
-    xhr.open('POST', 'https://formspree.io/translate@ki9.us')
-    xhr.send({
-      'token': token.id,
-      'email': document.getElementById('email').value,
-      'submission': document.getElementById('submission').value,
-      'wordcount': document.getElementById('wordcount').innerHTML,
-      'cost': document.getElementById('cost').innerHTML,
-    })
     
-    // And clear that form! 
-	  document.getElementById('email').value = ''
-	  document.getElementById('submission').value = ''
-	  document.getElementById('wordcount').innerHTML = '0'
-	  
+    // Append token to form
+    const form = document.getElementById('translate-form')
+    const tokenInput = document.getElementById('stripe-token')
+    tokenInput.setAttribute('value', token.id)
+    form.appendChild(tokenInput)
+    
+    // POST to formspree
+    form.submit()
+  	  
   }
 })
 
 // Form submission
 document.getElementById('buy-btn').addEventListener('click', function(e) {
+  e.preventDefault()
   
   // TODO: Make the red boxes normal again
   
