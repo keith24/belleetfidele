@@ -40,30 +40,33 @@ const buyHandler = StripeCheckout.configure({
 document.getElementById('buy-btn').addEventListener('click', function(e) {
   e.preventDefault()
   
-  // TODO: Make the red boxes normal again
-  
-  email = document.getElementsByName('email')[0].value
-  wordcount = document.getElementsByName('wordcount')[0].value
-  cost = document.getElementsByName('cost')[0].value
+  email = document.getElementsByName('email')[0]
+  wordcount = document.getElementsByName('wordcount')[0]
+  submission = document.getElementsByName('submission')[0]
+  cost = document.getElementsByName('cost')[0]
+    
+  // Make the red boxes normal again
+  submission.style.borderColor = 'red'
+  email.style.borderColor = 'red'
   
   // Validations
-  if (wordcount==0) {
+  if (wordcount.value==='0') {
     alert('The translation of nothing is still nothing...')
-    //TODO: Make submission box red or whatever
-  } else if (email==='') {
+    submission.style.borderColor = 'red'
+  } else if (email.value==='') {
     alert('Please enter an email address')
-    //TODO: Make email box red or whatever
-  } else if (!validEmail(email)) {
+    email.style.borderColor = 'red'
+  } else if (!validEmail(email.value)) {
     alert('Somethings funny about that email address...')
-    //TODO: Make email box red or whatever
+    email.style.borderColor = 'red'
   }
   
   // All valid, open purchase popup
   else buyHandler.open({
 	  name: 'Translation',
-	  description: 'Translation of '+wordcount+' words into English',
-	  email: email,
-	  amount: parseFloat(cost)*100,
+	  description: 'Translation of '+wordcount.value+' words into English',
+	  email: email.value,
+	  amount: parseFloat(cost.value)*100,
 	})
   
 })
