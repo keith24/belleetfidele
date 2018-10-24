@@ -38,7 +38,7 @@ price: 0.045
 				
 				<!-- Translation form -->
 				<h2>Translate</h2>
-				<form id="translate-form" method="POST" action="https://formspree.io/translate@ki9.us">
+				<form id="translate-form" data-bind="submit:formSubmitted" method="POST" action="https://formspree.io/translate@ki9.us">
 					<p>{{instructions}}</p>
 					<textarea id="submission" name="submission" data-bind="value:submission,valueUpdate:'afterkeydown'" rows="6" placeholder="Ordnung muss sein, sagte Hans, da brachten sie ihn in das Spinnhaus."></textarea>
 					<p>These <span id="wordcount" data-bind="text:wordcount"></span> word<span data-bind="visible:pluralWords">s</span> will be translated in <span></span> days and emailed to <input type="text" name="email" placeholder="you@example.com"></input></p>
